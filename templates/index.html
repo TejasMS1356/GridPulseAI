@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AI Load Forecasting Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="nav-brand">
+            <img src="/static/gridpulse_logo.png" alt="GridPulse AI Logo" style="height: 100px; width: auto; margin-right: 10px;"> GRIDPULSE-AI
+        </div>
+        <div class="nav-links">
+            <a href="/home" class="{% if request.path == '/home' %}active{% endif %}">Home</a>
+            <a href="/forecast" class="{% if request.path == '/forecast' %}active{% endif %}">Load Forecasting</a>
+            <a href="/gridguard" class="{% if request.path == '/gridguard' %}active{% endif %}">GridGuard AI</a>
+            <a href="/anomaly" class="{% if request.path == '/anomaly' %}active{% endif %}">Anomaly Detection</a>
+        </div>
+        <div class="nav-auth">
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h1>⚡ AI Load Forecasting Dashboard</h1>
+            <form action="/predict" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" required>
+                <button type="submit">Analyze & Predict</button>
+            </form>
+        </div>
+
+        {% if mae %}
+        <div class="metrics">
+            <div class="metric-card">
+                <h3>MAE</h3>
+                <p>{{ mae }}</p>
+            </div>
+            <div class="metric-card">
+                <h3>RMSE</h3>
+                <p>{{ rmse }}</p>
+            </div>
+        </div>
+
+        <div class="graph-card">
+            <h2>Actual vs Predicted Load</h2>
+            <img src="{{ graph1 }}" alt="Actual vs Predicted">
+        </div>
+
+        <div class="graph-card">
+            <h2>Next 24 Hours Forecast</h2>
+            <img src="{{ graph2 }}" alt="24h Forecast">
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>

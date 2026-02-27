@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Transformer Monitor</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="nav-brand">
+            <img src="/static/gridpulse_logo.png" alt="GridPulse AI Logo" style="height: 100px; width: auto; margin-right: 10px;"> GRIDPULSE-AI
+        </div>
+        <div class="nav-links">
+            <a href="/home" class="{% if request.path == '/home' %}active{% endif %}">Home</a>
+            <a href="/forecast" class="{% if request.path == '/forecast' %}active{% endif %}">Load Forecasting</a>
+            <a href="/gridguard" class="{% if request.path == '/gridguard' %}active{% endif %}">GridGuard AI</a>
+            <a href="/anomaly" class="{% if request.path == '/anomaly' %}active{% endif %}">Anomaly Detection</a>
+        </div>
+        <div class="nav-auth">
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h1>AI Based-Transformer Overload Prediction</h1>
+            <p>Enter the transformer parameters below to assess risk.</p>
+
+            <form method="post" action="/gridguard">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Time (Hour):</label>
+                        <input type="number" name="time_hour" min="0" max="23" value="15" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Current Load (MW):</label>
+                        <input type="number" step="0.1" name="current_load" min="0" max="30" value="18.5" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Temperature (°C):</label>
+                        <input type="number" step="0.1" name="temperature" min="10" max="45" value="34" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Area Type:</label>
+                        <select name="area" required>
+                            <option value="Residential">Residential</option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="Industrial">Industrial</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Consumers:</label>
+                        <input type="number" name="consumers" min="10" max="5000" value="850" required>
+                    </div>
+                </div>
+                <button type="submit">Predict Transformer Status</button>
+            </form>
+        </div>
+
+        {% if predicted_load %}
+        <div class="metrics">
+            <div class="metric-card">
+                <h3>Predicted Load</h3>
+                <p>{{ predicted_load }} MW</p>
+            </div>
+            <div class="metric-card">
+                <h3>Utilization</h3>
+                <p>{{ utilization }}%</p>
+            </div>
+            <div class="metric-card">
+                <h3>Risk Status</h3>
+                <p class="risk-status {{ risk|lower }}">{{ risk }}</p>
+            </div>
+        </div>
+
+        <div class="graph-card">
+            <h2>Load vs Temperature Relationship</h2>
+            <img src="{{ plot1 }}" alt="Load vs Temp">
+        </div>
+
+        <div class="graph-row">
+            <div class="graph-card half">
+                <h2>Transformer Utilization</h2>
+                <img src="{{ plot2 }}" alt="Utilization">
+            </div>
+            <div class="graph-card half">
+                <h2>Current vs Predicted Load</h2>
+                <img src="{{ plot3 }}" alt="Load Comparison">
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>

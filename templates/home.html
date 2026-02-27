@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GRIDPULSE-AI - Home</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="nav-brand">
+            <img src="/static/gridpulse_logo.png" alt="GridPulse AI Logo" style="height: 100px; width: auto; margin-right: 10px;"> GRIDPULSE-AI
+        </div>
+        <div class="nav-links">
+            <a href="/home" class="{% if request.path == '/home' %}active{% endif %}">Home</a>
+            <a href="/forecast" class="{% if request.path == '/forecast' %}active{% endif %}">Load Forecasting</a>
+            <a href="/gridguard" class="{% if request.path == '/gridguard' %}active{% endif %}">GridGuard AI</a>
+            <a href="/anomaly" class="{% if request.path == '/anomaly' %}active{% endif %}">Anomaly Detection</a>
+        </div>
+        <div class="nav-auth">
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card" style="text-align: center;">
+            <h1>Welcome to GRIDPULSE-AI</h1>
+            <h3>Your intelligent energy grid management platform. Leverage AI to forecast load, monitor transformer health, and detect anomalies in electricity consumption.</h3>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <h2>⚡ Load Forecasting</h2>
+                <p>Upload historical load data to get accurate short-term forecasts. Evaluate model performance with MAE and RMSE, and visualize actual vs predicted load.</p>
+                <a href="/forecast"><button>Go to Load Forecasting</button></a>
+            </div>
+            <div class="feature-card">
+                <h2>🛡️ GridGuard AI</h2>
+                <p>Predict transformer overload risk based on time, load, temperature, area type, and number of consumers. Get real-time utilization and risk status.</p>
+                <a href="/gridguard"><button>Go to GridGuard AI</button></a>
+            </div>
+            <div class="feature-card">
+                <h2>🔍 Anomaly Detection</h2>
+                <p>Upload smart meter data to detect abnormal consumption patterns. Identify high-risk customers and visualize individual customer anomalies.</p>
+                <a href="/anomaly"><button>Go to Anomaly Detection</button></a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

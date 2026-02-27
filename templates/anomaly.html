@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AI Anomaly Detection</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="nav-brand">
+            <img src="/static/gridpulse_logo.png" alt="GridPulse AI Logo" style="height: 100px; width: auto; margin-right: 10px;"> GRIDPULSE-AI
+        </div>
+        <div class="nav-links">
+            <a href="/home" class="{% if request.path == '/home' %}active{% endif %}">Home</a>
+            <a href="/forecast" class="{% if request.path == '/forecast' %}active{% endif %}">Load Forecasting</a>
+            <a href="/gridguard" class="{% if request.path == '/gridguard' %}active{% endif %}">GridGuard AI</a>
+            <a href="/anomaly" class="{% if request.path == '/anomaly' %}active{% endif %}">Anomaly Detection</a>
+        </div>
+        <div class="nav-auth">
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h1>AI-Based Electricity Anomaly Detection</h1>
+            <p>Upload smart meter data to detect abnormal electricity usage.</p>
+
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="file" accept=".csv" required>
+                </div>
+                <button type="submit"> Upload & Analyze</button>
+            </form>
+        </div>
+
+        {% if show_results %}
+        <div class="metrics">
+            <div class="metric-card">
+                <h3>Total Records</h3>
+                <p>{{ total_records }}</p>
+            </div>
+            <div class="metric-card">
+                <h3>Total Anomalies</h3>
+                <p>{{ total_anomalies }}</p>
+            </div>
+            <div class="metric-card">
+                <h3>High-Risk Customers (>3 anomalies)</h3>
+                <p>{{ high_risk_count }}</p>
+            </div>
+            <div class="metric-card">
+                <h3>Avg Risk Score</h3>
+                <p>{{ avg_risk }}%</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🚨 Customers with High Abnormal Activity</h2>
+            {% if abnormal_customers %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Customer ID</th>
+                        <th>Total Records</th>
+                        <th>Anomalies</th>
+                        <th>Avg Risk Score (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cust in abnormal_customers %}
+                    <tr>
+                        <td>{{ cust.Customer_ID }}</td>
+                        <td>{{ cust.Total_Records }}</td>
+                        <td>{{ cust.Anomalies }}</td>
+                        <td>{{ cust.Avg_Risk_Score }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No customers crossed the abnormal threshold.</p>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <h2>🔍 Detailed Customer View</h2>
+            <form method="get" action="/anomaly">
+                <div class="form-group">
+                    <label for="customer">Select Customer ID</label>
+                    <select name="customer" id="customer" onchange="this.form.submit()">
+                        <option value="">-- Choose a customer --</option>
+                        {% for cid in customer_ids %}
+                        <option value="{{ cid }}" {% if selected_customer == cid %}selected{% endif %}>{{ cid }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </form>
+
+            {% if plot_path %}
+            <div class="graph-card">
+                <img src="{{ plot_path }}" alt="Consumption plot for selected customer" style="width:100%;">
+            </div>
+            {% endif %}
+        </div>
+
+        <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+            <a href="/anomaly/download_summary">
+                <button> Download Customer Summary</button>
+            </a>
+            <a href="/anomaly/download_detailed">
+                <button> Download Detailed Results</button>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Signup - GRIDPULSE-AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="nav-brand">
+            <img src="/static/gridpulse_logo.png" alt="GridPulse AI Logo" style="height: 100px; width: auto; margin-right: 10px;"> GRIDPULSE-AI
+        </div>
+        <div class="nav-links">
+            <!-- No main navigation links on signup page -->
+        </div>
+        <div class="nav-auth">
+            <a href="/">Login</a>
+            <a href="/signup" class="active">Signup</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card" style="max-width: 700px; margin: 0 auto;">
+            <h1>📝 Officer Registration</h1>
+            <form method="post" action="/signup">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" name="full_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Employee ID *</label>
+                        <input type="text" name="employee_id" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Designation</label>
+                        <input type="text" name="designation" placeholder="e.g. Grid Operator">
+                    </div>
+                    <div class="form-group">
+                        <label>Department</label>
+                        <input type="text" name="department" placeholder="e.g. Operations">
+                    </div>
+                    <div class="form-group">
+                        <label>Region / Zone</label>
+                        <input type="text" name="region" placeholder="e.g. North Zone">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label>Username *</label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password *</label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password *</label>
+                        <input type="password" name="confirm_password" required>
+                    </div>
+                </div>
+                <button type="submit" style="width: 100%;">Create Account</button>
+            </form>
+            <p style="text-align: center; margin-top: 1.5rem;">
+                Already have an account? <a href="/" style="color: var(--accent-primary);">Login</a>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

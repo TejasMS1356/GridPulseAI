@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login - GRIDPULSE-AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="nav-brand">
+            <img src="/static/gridpulse_logo.png" alt="GridPulse AI Logo" style="height: 100px; width: auto; margin-right: 10px;"> GRIDPULSE-AI
+        </div>
+        <div class="nav-links">
+            <!-- No main navigation links on login page -->
+        </div>
+        <div class="nav-auth">
+            <a href="/" class="active">Login</a>
+            <a href="/signup">Signup</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card" style="max-width: 500px; margin: 0 auto;">
+            <h1>🔐 Officer Login</h1>
+            <form method="post" action="/login">
+                <div class="form-group">
+                    <label>Username / Employee ID</label>
+                    <input type="text" name="username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" style="width: 100%;">Login</button>
+            </form>
+            <p style="text-align: center; margin-top: 1.5rem;">
+                Don't have an account? <a href="/signup" style="color: var(--accent-primary);">Sign up</a>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
