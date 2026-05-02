@@ -13,7 +13,7 @@ import io
 from functools import wraps
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-here'
+app.secret_key = 'xyz'
 
 if not os.path.exists("static"):
     os.makedirs("static")
